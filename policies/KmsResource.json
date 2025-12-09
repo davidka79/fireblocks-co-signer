@@ -1,0 +1,49 @@
+{
+    "Version" : "2012-10-17",
+    "Id" : "key-consolepolicy-4",
+    "Statement" : [
+      {
+        "Sid" : "Enable enclave data processing for specific role",
+        "Effect" : "Allow",
+        "Principal" : {
+          "AWS" : "${ServerRoleArn}"
+        },
+        "Action" : [
+          "kms:Decrypt",
+          "kms:Encrypt",
+          "kms:GenerateDataKey",
+          "kms:GenerateDataKeyPair",
+          "kms:GenerateDataKeyWithoutPlaintext",
+          "kms:GenerateDataKeyPairWithoutPlaintext",
+          "kms:GenerateRandom",
+          "kms:GetKeyPolicy"
+        ],
+        "Resource" : "*",
+        "Condition" : {
+          "StringEqualsIgnoreCase" : {
+            "kms:RecipientAttestation:PCR8" : "${Pcr8Value}"
+          }
+        }
+      },
+      {
+        "Sid" : "Allow GetKeyPolicy to co-signer",
+        "Effect" : "Allow",
+        "Principal" : {
+          "AWS" : "${ServerRoleArn}"
+        },
+        "Action" : "kms:GetKeyPolicy",
+        "Resource" : "*"
+      },
+      {
+        "Sid" : "Allow policy management to root user",
+        "Effect" : "Allow",
+        "Principal" : {
+          "AWS" : "arn:aws:iam::${AccountId}:root"
+        },
+        "Action" : [
+          "kms:*"
+        ],
+        "Resource" : "*"
+      }
+    ]
+  }

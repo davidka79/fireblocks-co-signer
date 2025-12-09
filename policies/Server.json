@@ -1,0 +1,84 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Basic",
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:PutMetricData",
+        "ec2:DescribeTags",
+        "logs:PutLogEvents",
+        "logs:DescribeLogStreams",
+        "logs:DescribeLogGroups",
+        "logs:CreateLogStream",
+        "logs:CreateLogGroup",
+        "SNS:Publish"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ListBuckets",
+      "Effect": "Allow",
+      "Action": "s3:ListAllMyBuckets",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetBucketLocation"
+      ],
+      "Resource": "${StorageBucketArn}"
+    },
+    {
+      "Sid": "WritePermissionsOnBucket",
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "s3:DeleteObject"
+      ],
+      "Resource": "${StorageBucketArn}/*"
+    },
+    {
+      "Sid": "AccessToTheKey",
+      "Effect": "Allow",
+      "Action": [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:GenerateDataKey",
+        "kms:GenerateDataKeyPair",
+        "kms:GenerateDataKeyWithoutPlaintext",
+        "kms:GenerateDataKeyPairWithoutPlaintext",
+        "kms:GenerateRandom",
+        "kms:GetKeyPolicy"
+      ],
+      "Resource": [
+        "${FireblocksNitroCosignerKmsKeyArn}"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ssm:GetParameter"
+      ],
+      "Resource": "arn:aws:ssm:${Region}:${AccountId}:parameter/${ProjectName}*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:Decrypt"
+      ],
+      "Resource": "arn:aws:kms:${Region}:${AccountId}:key/*",
+      "Condition": {
+        "ForAnyValue:StringLike": {
+          "kms:ResourceAliases": [
+            "aws/ssm"
+          ]
+        }
+      }
+    }
+  ]
+}
