@@ -39,7 +39,7 @@ variable "instance_type" {
 
 variable "storage_bucket_name" {
   type        = string
-  default     = "fireblocks-cosigner-storage-aps-production-eu-central-1"
+  default     = "fireblocks-co-signer-storage-eu-central-1"
   description = "The name of the S3 bucket used for storing cosigner-related data."
 }
 
@@ -55,17 +55,3 @@ variable "ami" {
   default     = "ami-0592c673f0b1e7665"
   description = "The Amazon Machine Image (AMI) ID for Amazon Linux 2023, designed for instances with Nitro capabilities."
 }
-
-variable "vpc_id" {
-  type        = string
-  default     = "vpc-0e478582ed188516b"
-  description = "The VPC ID where the EC2 instance will be launched."
-}
-
-variable "subnet_id" {
-  type        = string
-  default     = "subnet-0beca7a2f67ad0c87"
-  description = "The ID of the subnet within the VPC where specific resources are deployed."
-}
-
-
