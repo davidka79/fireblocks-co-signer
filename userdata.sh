@@ -43,7 +43,7 @@ echo "Installation complete in $INSTALL_DIR."
 
 s3_bucket_name="${StorageBucketName}"
 kms_key_arn="${KmsKeyArn}"
-api_tokens=$(aws ssm get-parameter --name "/${ProjectName}/tokens" --with-decryption --query "Parameter.Value" --output text)
+api_tokens=$(aws ssm get-parameter --name "/ec2-fireblocks/tokens" --with-decryption --query "Parameter.Value" --output text)
 
 # Split the api_tokens into an array
 IFS=',' read -ra tokens <<< "$api_tokens"
