@@ -1,7 +1,7 @@
 resource "aws_security_group" "server" {
   name        = var.project_name
   description = "Security group for the server allowing access specified ingress rules"
-  vpc_id      = aws_vpc.main.vpc_id
+  vpc_id      = aws_vpc.main.id
   tags        = var.tags
 
   dynamic "ingress" {

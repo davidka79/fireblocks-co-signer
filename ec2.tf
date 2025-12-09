@@ -23,7 +23,7 @@ resource "aws_instance" "server" {
 
   tags = var.tags
 
-  subnet_id = aws_subnet.private.subnet_id
+  subnet_id = aws_subnet.private.id
 
   root_block_device {
     delete_on_termination = true
