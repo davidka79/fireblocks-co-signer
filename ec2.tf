@@ -13,7 +13,7 @@ resource "aws_instance" "server" {
   vpc_security_group_ids      = [aws_security_group.server.id]
   user_data                   = templatefile("userdata.sh", local.user_data_vars)
   user_data_replace_on_change = false
-  disable_api_termination     = true
+  disable_api_termination     = false
   iam_instance_profile        = aws_iam_instance_profile.server.name
 
   metadata_options {
