@@ -36,4 +36,22 @@ resource "aws_instance" "server" {
   enclave_options {
     enabled = true
   }
+
+  depends_on = [
+    aws_vpc.main,
+    aws_internet_gateway.main,
+    aws_subnet.public,
+    aws_subnet.private,
+    aws_nat_gateway.main,
+    aws_route_table.public,
+    aws_route_table.private,
+    aws_route_table_association.public,
+    aws_route_table_association.private,
+    aws_security_group.server,
+    aws_kms_key.fireblocks_nitro_cosigner,
+    aws_kms_alias.fireblocks_nitro_cosigner,
+    aws_s3_bucket.storage_bucket,
+    aws_s3_bucket_public_access_block.storage_bucket,
+    aws_s3_bucket_lifecycle_configuration.storage_bucket
+  ]
 }

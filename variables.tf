@@ -39,7 +39,7 @@ variable "instance_type" {
 
 variable "storage_bucket_name" {
   type        = string
-  default     = "fireblocks-co-signer-storage-kPZS5BuY2p1-eu-central-1"
+  default     = "fireblocks-co-signer-storage-kpzs5buy2p1-eu-central-1"
   description = "The name of the S3 bucket used for storing cosigner-related data."
 }
 

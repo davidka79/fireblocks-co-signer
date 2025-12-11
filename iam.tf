@@ -37,5 +37,7 @@ resource "aws_iam_role_policy_attachment" "server" {
 
 resource "aws_iam_role_policy_attachment" "ssm_managed" {
   role       = aws_iam_role.server.name
-  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/${var.region}-SsmManagedInstanceMinimal"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  #  role       = aws_iam_role.server.name
+  #  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/${var.region}-SsmManagedInstanceMinimal"
 }
